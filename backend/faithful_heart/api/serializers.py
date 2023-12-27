@@ -2,7 +2,6 @@ from rest_framework import serializers
 
 from users.models import TelegramUser
 from questions.models import UniqueQuestion, FrequentlyAskedQuestion
-from faithful_heart import constants
 
 
 class TelegramUserSerializer(serializers.ModelSerializer):
@@ -11,8 +10,8 @@ class TelegramUserSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = FrequentlyAskedQuestion
-        fields = ('text', 'answer', 'id', )
+        model = TelegramUser
+        fields = ('username', 'chat_id', 'name', 'surname', 'email', 'phone',)
 
 
 class FrequentlyAskedQuestionSerializer(serializers.ModelSerializer):
