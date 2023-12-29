@@ -1,6 +1,7 @@
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import requests
 
 from asgiref.sync import async_to_sync
 from django.core.mail import send_mail
@@ -15,6 +16,7 @@ load_dotenv()
 TOKEN = os.getenv('TOKEN')
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
 ADMIN_TG_CHAT_ID = os.getenv('ADMIN_TG_CHAT_ID')
+URL = 'http://localhost'
 
 
 def export_users_excel(users):
@@ -53,6 +55,10 @@ async def send_tg_notification_to_admin(question):
     Отправка сообщения Администратору в Telegram
     при создании уникального вопроса.
     """
-    bot = Bot(token=TOKEN)
-    await bot.send_message(chat_id=ADMIN_TG_CHAT_ID,
-                           text=f'Поступил новый вопрос: {question}')
+    message = f'Поступил новый вопрос: {question}. Посмотреть вопрос в панели администратора {URL}:8000/admin/questions/uniquequestion/'
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={ADMIN_TG_CHAT_ID}&text={message}"
+    print(requests.get(url).json())
+
+    # bot = Bot(token=TOKEN)
+    # await bot.send_message(chat_id=ADMIN_TG_CHAT_ID,
+    #                        text=f'Поступил новый вопрос: {question}')
