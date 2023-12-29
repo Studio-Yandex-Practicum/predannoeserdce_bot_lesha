@@ -168,3 +168,5 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1',
     'http://51.250.11.96/',
 ]
+
+URL = 'http://localhost'

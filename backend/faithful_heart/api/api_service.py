@@ -9,7 +9,7 @@ from openpyxl import Workbook
 from aiogram import Bot
 
 from faithful_heart import constants
-from faithful_heart.settings import MEDIA_ROOT
+from faithful_heart.settings import MEDIA_ROOT, URL
 from users.models import TelegramUser, User
 
 
@@ -65,7 +65,7 @@ def send_email_to_admin(question):
     """
     admin_email = User.objects.get(username="admin").email
     send_mail(
-        "Поступил новый вопрос",
+        f"Поступил новый вопрос, просмотреть в панели администратора: {URL}:8000/admin/questions/uniquequestion/{question.id}",
         question,
         from_email=admin_email,
         recipient_list=[
@@ -88,3 +88,13 @@ def send_email_to_admin(question):
 #     )
 #     await bot.send_message(chat_id=tg_admin_user.chat_id,
 #                            text=f'Поступил новый вопрос: {question}')
+
+
+# def send_tg_notification_to_admin(question):
+#     """
+#     Отправка сообщения Администратору в Telegram
+#     при создании уникального вопроса.
+#     """
+#     message = f'Поступил новый вопрос: {question}'
+#     url = f"https://api.telegram.org/bot%7BTOKEN%7D/sendMessage?chat_id={ADMIN_TG_CHAT_ID}&text={message}"
+#     print(requests.get(url).json())
