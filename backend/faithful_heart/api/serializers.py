@@ -7,12 +7,20 @@ from questions.validators import validate_is_profane_russian
 
 class TelegramUserSerializer(serializers.ModelSerializer):
     """
-    Сериализатор для получения списка вопросов.
+    Сериализатор пользователя.
     """
 
     class Meta:
         model = TelegramUser
-        fields = ('username', 'chat_id', 'name', 'surname', 'email', 'phone',)
+        fields = (
+            "username",
+            "chat_id",
+            "name",
+            "second_name",
+            "surname",
+            "email",
+            "phone_number",
+        )
 
 
 class FrequentlyAskedQuestionSerializer(serializers.ModelSerializer):
@@ -20,16 +28,20 @@ class FrequentlyAskedQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FrequentlyAskedQuestion
-        fields = ('text', 'answer', 'id',)
+        fields = (
+            "text",
+            "answer",
+            "id",
+        )
 
 
 class UniqueQuestionSerializer(serializers.ModelSerializer):
     """
     Сериализатор для уникального вопроса от пользователя.
     """
+
     owner = serializers.SlugRelatedField(
-        queryset=TelegramUser.objects.all(),
-        slug_field='chat_id'
+        queryset=TelegramUser.objects.all(), slug_field="chat_id"
     )
 
     def validate_text(self, text):
@@ -38,4 +50,7 @@ class UniqueQuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UniqueQuestion
-        fields = ('text', 'owner',)
+        fields = (
+            "text",
+            "owner",
+        )
