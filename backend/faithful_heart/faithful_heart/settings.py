@@ -1,4 +1,6 @@
 from datetime import timedelta
+
+from celery.schedules import crontab
 from dotenv import load_dotenv
 import os
 from pathlib import Path
@@ -161,7 +163,7 @@ SIMPLE_JWT = {
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / 'media'
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 
 CSRF_TRUSTED_ORIGINS = [
@@ -172,3 +174,20 @@ CSRF_TRUSTED_ORIGINS = [
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+
+CELERY_BEAT_SCHEDULE = {
+    'check-and-send-newsletters-every-minute': {
+        'task': 'your_app.tasks.check_and_send_newsletters',
+        'schedule': crontab(minute="1"),  # Здесь вы можете настроить интервал запуска
+    },
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.getenv("EMAIL_ADDRESS")
+EMAIL_HOST_PASSWORD = os.getenv("APP_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'default from email'
+

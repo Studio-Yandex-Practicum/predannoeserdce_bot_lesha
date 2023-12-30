@@ -22,3 +22,4 @@ DATETIME_FORMAT = "%Y%m%d"
 CHAT_ID_REGEX = r"\d"
 TELEGRAM_USERNAME_REGEX = r"([a-z]|\d|[_])"
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+APP_PASSWORD = os.getenv("APP_PASSWORD")
