@@ -22,12 +22,14 @@ def export_users_excel():
     sheet.column_dimensions["D"].width = 18
     sheet.column_dimensions["E"].width = 18
     sheet.column_dimensions["F"].width = 18
+    sheet.column_dimensions["G"].width = 18
     headers = [
-        "Name",
-        "Surname",
-        "Phone Number",
-        "Username",
-        "Chat_id",
+        "Имя",
+        "Фамилия",
+        "Отчество",
+        "Номер телефона",
+        "Username в telegram",
+        "Chat_id в telegram",
         "Email",
     ]
     sheet.append(headers)
@@ -36,6 +38,7 @@ def export_users_excel():
             [
                 user.name,
                 user.surname,
+                user.middle_name,
                 user.phone_number,
                 user.username,
                 user.chat_id,
