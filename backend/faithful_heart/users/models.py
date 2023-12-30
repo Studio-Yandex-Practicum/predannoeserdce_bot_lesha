@@ -86,7 +86,7 @@ class TelegramUser(models.Model, TimeMixin):
         blank=True
     )
 
-    second_name = models.CharField(
+    surname = models.CharField(
         verbose_name='Фамилия',
         max_length=constants.SURNAME_MAX_LENGTH,
         validators=[
@@ -103,7 +103,7 @@ class TelegramUser(models.Model, TimeMixin):
         blank=True
     )
 
-    surname = models.CharField(
+    middle_name = models.CharField(
         verbose_name='Отчество',
         max_length=constants.SURNAME_MAX_LENGTH,
         validators=[
