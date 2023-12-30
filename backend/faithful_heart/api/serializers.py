@@ -17,8 +17,8 @@ class TelegramUserSerializer(serializers.ModelSerializer):
             "username",
             "chat_id",
             "name",
-            "second_name",
             "surname",
+            "middle_name",
             "email",
             "phone_number",
         )
