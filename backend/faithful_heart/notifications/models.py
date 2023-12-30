@@ -36,3 +36,17 @@ class TelegramNewsletter(BaseNotification):
     class Meta:
         verbose_name = "Рассылка для пользователей Telegram"
         verbose_name_plural = "Рассылки для пользователей Telegram"
+
+
+class EmailNewsletter(BaseNotification):
+    subject = models.CharField(
+        verbose_name="Заголовок письма",
+        max_length=128
+    )
+    sending_date = models.DateTimeField(
+        verbose_name="Дата отправки"
+    )
+
+    class Meta:
+        verbose_name = "Рассылка на email для пользователей Telegram"
+        verbose_name_plural = "Рассылки на email для пользователей Telegram"

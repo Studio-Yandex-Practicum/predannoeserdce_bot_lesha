@@ -169,3 +169,6 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1',
     'http://51.250.11.96/',
 ]
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
