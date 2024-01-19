@@ -63,7 +63,7 @@ class FrequentlyAskedQuestionView(ListModelMixin, GenericViewSet):
     queryset = FrequentlyAskedQuestion.objects.filter(is_relevant=True)
     serializer_class = FrequentlyAskedQuestionSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ("category",)
+    filterset_fields = ("category__name",)
     permission_classes = [IsAuthenticated]
 
 

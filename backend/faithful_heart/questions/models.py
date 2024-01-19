@@ -7,6 +7,34 @@ from users.models import TelegramUser, TimeMixin
 from faithful_heart import constants
 
 
+class Category(models.Model):
+    """
+    Модель категории вопроса.
+    """
+
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+        verbose_name="Название категории"
+    )
+    value = models.TextField(
+        max_length=150,
+        null=True,
+        verbose_name="Значение категории"
+    )
+    is_relevant = models.BooleanField(
+        verbose_name="Актуальна ли категория?",
+        default=True
+    )
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
+    def __str__(self):
+        return self.name
+
+
 class AbstractQuestion(models.Model, TimeMixin):
     """
     Абстрактная модель Вопроса.
@@ -23,14 +51,6 @@ class FrequentlyAskedQuestion(AbstractQuestion):
     """
     Модель FAQ (Часто задаваемые вопросы).
     """
-
-    class QuestionCategories(models.TextChoices):
-        FAQ = "FAQ", "Часто Задаваемые Вопросы"
-        SHELTER_INFO = "Shelter_Info", "Узнать больше о приюте"
-        NEEDS = "Needs", "Нужды приюта"
-        DONATIONS = "Donations", "Сделать пожертвование"
-        LIST_ANIMALS = "List_Animals", "Список животных"
-
     answer = models.TextField(
         max_length=constants.FAQ_MAX_LENGTH,
         verbose_name='Текст ответа'
@@ -41,11 +61,10 @@ class FrequentlyAskedQuestion(AbstractQuestion):
         default=True
     )
 
-    category = models.CharField(
-        max_length=24,
-        choices=QuestionCategories.choices,
-        null=False,
-        blank=False
+    category = models.ForeignKey(
+        Category,
+        verbose_name='Категория',
+        on_delete=models.CASCADE
     )
 
     class Meta:
