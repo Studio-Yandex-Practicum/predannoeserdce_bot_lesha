@@ -80,7 +80,8 @@ async def process_update(
     response = responses[message.text.casefold()]
     await state.set_state(response["state"])
     await message.answer(
-        response["message"], reply_markup=response.get("keyboard")
+        response["message"],
+        reply_markup=response.get("keyboard"),
     )
 
 
